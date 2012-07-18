@@ -20,7 +20,7 @@ Cuba.define do
 
   on post do
     on "process_rss" do
-      debugger
+      # debugger
       on param("RSSLink") do |link|
         feed = Feedzirra::Feed.fetch_and_parse link
         res.write feed.entries.to_json
