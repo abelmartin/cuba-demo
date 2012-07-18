@@ -1,0 +1,20 @@
+!!! 5
+%html
+  %head
+    %title My Cuba Demo
+    :css
+      input[type='text']{width:500px;}
+  %body
+    %h1
+      = headline
+    %form{action: "/process_rss", method:"post"}
+      %input#RSSLink{type:"text", value:"http://newyork.craigslist.org/search/aap/que?bedrooms=1&hasPic=1&maxAsk=5000&minAsk=2000&query=long%20island%20city&srchType=A&format=rss"}
+      %input#test{type:"hidden", value:"1"}
+      %input#Submit{type:"Submit", value:"Submit"}
+    %p
+      This demo app is powered by
+      %a{href:"http://cuba.is", target:"_blank"} Cuba
+      ,
+      %a{href:"https://github.com/pauldix/feedzirra", target:"_blank"} Feedzirra
+      , and was inspired by both Cuba's docs and the
+      %a{href:"https://github.com/antirez/redis-io", target:"_blank"} Redis IO source
