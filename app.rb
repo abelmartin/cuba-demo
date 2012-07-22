@@ -4,7 +4,6 @@ require "cuba"
 require "cuba/render"
 require "haml"
 require "feedzirra"
-# require "json"
 require "debugger"
 
 require './extender'
