@@ -7,6 +7,8 @@ require "feedzirra"
 # require "json"
 require "debugger"
 
+require './extender'
+
 Cuba.use Rack::Session::Cookie
 Cuba.use Rack::Static, urls: ["/images", "/javascripts", "/stylesheets"], root: File.join(ROOT_PATH, "public")
 Cuba.plugin Cuba::Render
@@ -23,17 +25,17 @@ Cuba.define do
     on "process_rss" do
       on param("RSSLink") do |link|
         feed = Feedzirra::Feed.fetch_and_parse link
-        puts ">> RSS Link: #{link}"
-        puts ">> RSS Response: #{feed.entries.last} \n"
-        puts ">> RSS Response JSON: #{feed.entries.last.to_json} \n"
-        res.write( feed.entries.to_json )
-        # res.write( feed.to_json )
+        entries_hash = {entries: feed.entries.map{|ee| ee.hasherize}}
+        # debugger
+        res.write( entries_hash.to_json )
       end
 
       on true do
+        ha = [{title: "love wins", size: 200}, {title: "hate wins", size: 300}].to_json
         # debugger
-        res.write({a: 1, b: 2}.to_json)
+        res.write(ha)
       end
     end
   end
 end
+

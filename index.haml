@@ -15,17 +15,31 @@
       %input#Submit{type:"Submit", value:"Submit"}
     #RSSResponseLoading
       %img{src: "/images/loading.gif", style:"display:none;"}
-    #RSSResponse
+    %ul#RSSResponse
 
     %p
       This demo app is powered by
       %a{href:"http://cuba.is", target:"_blank"} Cuba
       ,
       %a{href:"https://github.com/pauldix/feedzirra", target:"_blank"} Feedzirra
-      , and was inspired by both 
-      %a{href:"http://soveran.github.com/cuba/"} Cuba's docs 
+      , and was inspired by both
+      %a{href:"http://soveran.github.com/cuba/", target: "_blank"} Cuba's docs
       and the
       %a{href:"https://github.com/antirez/redis-io", target:"_blank"} Redis IO source
+
+    %script{id: "htItem", type: "text/x-handlebars-template"}
+      {{#each entries}}
+      %li.item
+        %h3.title
+          %a{href: "{{this.url}}", target: "_blank"}
+            {{this.title}}
+        %p.summary
+          {{this.summary}}
+      {{/each}}
+
+
+
+
     %script{type: "text/javascript", src: "http://code.jquery.com/jquery-1.7.2.min.js"}
     %script{type: "text/javascript", src: "https://github.com/downloads/wycats/handlebars.js/handlebars-1.0.0.beta.6.js"}
     %script{type: "text/javascript", src: "/javascripts/app.js"}
