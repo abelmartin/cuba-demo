@@ -16,7 +16,7 @@ Cuba.define do
   on get do
     on root do
       # res.redirect "/hello"
-      res.write render("index.haml", headline: "Feed Me!!! I want to eat RSS!!!");
+      res.write render("index.haml", headline: "Feed Me!!! I want to eat Craig's List RSS!!!");
     end
   end
 
