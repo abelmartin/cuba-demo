@@ -9,15 +9,31 @@
     %h1
       = headline
     %form#ProcessFeed{action: "/process_rss", method:"post"}
-      %input#RSSLink{type:"text", value:"http://newyork.craigslist.org/search/msg?hasPic=1&query=keyboard&srchType=A&format=rss"}
-      / %input#RSSLink{type:"text", value: 5}
+      %input#RSSLink{type:"text", 
+        value:"http://newyork.craigslist.org/search/msg?hasPic=1&query=keyboard&srchType=A&format=rss",
+        style: 'width:80%; font-size:20px;'}
       %input#test{type:"hidden", value:"1"}
       %input#Submit{type:"Submit", value:"Submit"}
     #RSSResponseLoading
       %img{src: "/images/loading.gif", style:"display:none;"}
-    %ul#RSSResponse
 
-    %p
+    %details#DTCraigsList{open:'open'}
+      %summary Craig's List
+      %iframe{src:'http://newyork.craigslist.org/search/msg?hasPic=1&query=keyboard&srchType=A',
+              height: 400, width: '100%'}
+
+    %details#DTResponse{open:'open', style: 'border: dashed 1px darkblue; padding:10px;'}
+      %summary List Results
+      %ul#RSSResponse
+        %li
+          Perform a search in Craig's List.
+        %li
+          When you see results, scroll to the bottom of the page.
+        %li
+          Right click on the RSS button and copy the link.
+        %li
+          Paste the link into the text area above & click 'Submit'
+    %p{style: 'margin-top:5px; padding-top:5px; border-top: solid 1px #333;'}
       This demo app is powered by
       %a{href:"http://cuba.is", target:"_blank"} Cuba
       ,
