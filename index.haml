@@ -17,12 +17,12 @@
     #RSSResponseLoading
       %img{src: "/images/loading.gif", style:"display:none;"}
 
-    %details#DTCraigsList{open:'open'}
+    %details#DTCraigsList{open:'open',style: 'margin: 0px 10px 20px;'}
       %summary Craig's List
       %iframe{src:'http://newyork.craigslist.org/search/msg?hasPic=1&query=keyboard&srchType=A',
               height: 400, width: '100%'}
 
-    %details#DTResponse{open:'open', style: 'border: dashed 1px darkblue; padding:10px;'}
+    %details#DTResponse{open:'open', style: 'margin: 20px 10px; border: dashed 1px darkblue; padding:10px; height: 300px; overflow-y: auto;'}
       %summary List Results
       %ul#RSSResponse
         %li
