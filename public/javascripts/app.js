@@ -2,27 +2,32 @@ $(function(){
 
   window.HT = Handlebars.compile($('#htItem').html());
 
-  $("#ProcessFeed").submit(function(e){
+  $("#ProcessSearch").submit(function(e){
 
     e.preventDefault();
-    $("#RSSResponseLoading img").show();
+    $("#SearchResponseLoading img").show();
+    var form_data = {
+      Instrument: $('#InstrumentName').val(),
+      MinPrice: $('#MinPrice').val(),
+      MaxPrice: $('#MaxPrice').val()
+    }
 
     $.ajax({
       type:"POST",
-      data:{RSSLink:$("#RSSLink").val()},
+      data: form_data,
       dataType: "json",
-      url:"/process_rss",
+      url:"/search",
 
       success: function(resp){
         window.RSP = resp
 
-        $("#RSSResponseLoading img").fadeOut();
-        $("#RSSResponse").html( HT(resp) );
+        $("#SearchResponseLoading img").fadeOut();
+        $("#SearchResponse").html( HT(resp) );
       },
 
       error: function(resp){
-        $("#RSSResponseLoading img").fadeOut();
-        $("#RSSResponse").html("Something Blew The Hell Up!");
+        $("#SearchResponseLoading img").fadeOut();
+        $("#SearchResponse").html("Something Blew The Hell Up!");
       }
     });
   });

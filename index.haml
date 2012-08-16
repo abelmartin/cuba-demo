@@ -3,54 +3,59 @@
   %head
     %title My Cuba Demo
     :css
-      input[type='text']{width:500px;}
-      #RSSResponseLoading{height:20px;}
+      .form_input{float:left; margin-right:25px;}
+      #ProcessSearch{height:50px;}
+      #RSSResponseLoading{height:20px; clear:both;}
   %body
     %h1
       = headline
-    %form#ProcessFeed{action: "/process_rss", method:"post"}
-      %input#RSSLink{type:"text", 
-        value:"http://newyork.craigslist.org/search/msg?hasPic=1&query=keyboard&srchType=A&format=rss",
-        style: 'width:80%; font-size:20px;'}
-      %input#test{type:"hidden", value:"1"}
-      %input#Submit{type:"Submit", value:"Submit"}
-    #RSSResponseLoading
+    %form#ProcessSearch{action: "/search", method:"post"}
+      %p.form_input
+        %label{for: 'InstrumentName'} Instrument Name
+        %input#InstrumentName{type:"text", 
+          placeholder:"Keyboard, Drums, Etc"}
+      %p.form_input
+        %label{for: 'MinPrice'} Min $
+        %input#MinPrice{type:"text", 
+          placeholder:"15"}
+      %p.form_input
+        %label{for: 'MaxPrice'} Max $
+        %input#MaxPrice{type:"text", 
+          placeholder:"1500"}
+      %p.form_input
+        %input#Submit{type:"Submit", value:"Submit"}
+    #SearchResponseLoading
       %img{src: "/images/loading.gif", style:"display:none;"}
 
-    %details#DTCraigsList{open:'open',style: 'margin: 0px 10px 20px;'}
-      %summary Craig's List
-      %iframe{src:'http://newyork.craigslist.org/search/msg?hasPic=1&query=keyboard&srchType=A',
-              height: 400, width: '100%'}
+    %h3 Search Results
+    #SearchResponse{style: 'margin: 20px 10px; padding:10px; height: 300px; overflow-y: auto;'}
 
-    %details#DTResponse{open:'open', style: 'margin: 20px 10px; border: dashed 1px darkblue; padding:10px; height: 300px; overflow-y: auto;'}
-      %summary List Results
-      %ul#RSSResponse
-        %li
-          Perform a search in Craig's List.
-        %li
-          When you see results, scroll to the bottom of the page.
-        %li
-          Right click on the RSS button and copy the link.
-        %li
-          Paste the link into the text area above & click 'Submit'
     %p{style: 'margin-top:5px; padding-top:5px; border-top: solid 1px #333;'}
-      This demo app is powered by
-      %a{href:"http://cuba.is", target:"_blank"} Cuba
-      ,
-      %a{href:"https://github.com/pauldix/feedzirra", target:"_blank"} Feedzirra
-      , and was inspired by both
+      This demo app is powered by&nbsp;
+      %a{href:"http://cuba.is", target:"_blank"}> Cuba
+      ,&nbsp;
+      %a{href:"http://3taps.com/", target:"_blank"}> 3Taps API
+      , and my altered&nbsp;
+      %a{href:"https://github.com/abelmartin/3taps-Ruby-Client.git", target:"_blank"}> 3Taps gem
+      \.  It's inspired by both
       %a{href:"http://soveran.github.com/cuba/", target: "_blank"} Cuba's docs
-      and the
-      %a{href:"https://github.com/antirez/redis-io", target:"_blank"} Redis IO source
+      and the&nbsp;
+      %a{href:"https://github.com/antirez/redis-io", target:"_blank"}> Redis IO source
+      \.
+    %p
+      This demo is also possible because Craig's List has 
+      %a{href:"https://www.eff.org/deeplinks/2012/08/good-news-craigslist-drops-exclusive-license-your-posts", target:'_blank'} come to their senses!
+      \:)
 
     %script{id: "htItem", type: "text/x-handlebars-template"}
-      {{#each entries}}
+      {{#each results}}
       %li.item
         %h3.title
-          %a{href: "{{this.url}}", target: "_blank"}
-            {{this.title}}
+          ${{this.posting.price}} &nbsp;
+          %a{href: "{{this.posting.externalURL}}", target: "_blank"}
+            {{this.posting.heading}}
         %p.summary
-          {{this.summary}}
+          {{this.posting.body}}
       {{/each}}
 
     %script{type: "text/javascript", src: "http://code.jquery.com/jquery-1.7.2.min.js"}
