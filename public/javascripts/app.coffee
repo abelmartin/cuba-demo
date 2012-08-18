@@ -1,4 +1,3 @@
-$ = jQuery
 $ ->
   window.HT = Handlebars.compile($('#htItem').html())
 
@@ -23,5 +22,4 @@ $ ->
       error: (resp) ->
         $("#SearchResponseLoading img").fadeOut()
         $("#SearchResponse").html("Something Blew The Hell Up!"))
-
     null
